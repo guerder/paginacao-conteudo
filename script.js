@@ -11,7 +11,7 @@ const createSections = function () {
     const itemsSection = $(this).attr('data-items-section');
 
     const container = $(this).find('div').first();
-    const elements = $(container).find('div');
+    const elements = $(container).children('div');
 
     $.each(elements, function (index) {
       let position = index + 1;
