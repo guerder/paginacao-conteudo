@@ -13,14 +13,17 @@ const createSections = function () {
     const container = $(this).find('div').first();
     const elements = $(container).children('div');
 
-    $.each(elements, function (index) {
-      let position = index + 1;
-      if (position % itemsSection === 0 && position !== elements.length) {
-        $(this).after(
-          '<hr class="section-divider" style="display: flex; width: 100%; margin: 20px 0; border: 0;" />'
-        );
-      }
-    });
+    let totalSections = $(this).attr('data-total-sections');
+    if (totalSections === undefined) {
+      $.each(elements, function (index) {
+        let position = index + 1;
+        if (position % itemsSection === 0 && position !== elements.length) {
+          $(this).after(
+            '<hr class="section-divider" style="display: flex; width: 100%; margin: 20px 0; border: 0;" />'
+          );
+        }
+      });
+    }
 
     const dividers = $(this).find('.section-divider');
     if (dividers.length == 0) {
