@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paginação em DIV</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-header">
+            <h2>Selecione</h2>
+          </div>
+          <div
+            class="card-body sections"
+            data-id="torre"
+            data-items-section="13"
+            data-height-section="320"
+          >
+            <div
+              class="d-flex justify-content-center align-content-start flex-wrap"
+            >
+              <div class="torre border border-dark rounded p-2 m-2">texto1</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto2</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto3</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto4</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto5</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto6</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto7</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto8</div>
+              <div class="torre border border-dark rounded p-2 m-2">texto9</div>
+              <div class="torre border border-dark rounded p-2 m-2">text10</div>
+              <div class="torre border border-dark rounded p-2 m-2">text11</div>
+              <div class="torre border border-dark rounded p-2 m-2">text12</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-end p-2">
+              <button
+                class="btn btn-primary mr-2"
+                data-handle-section="torre"
+                data-type="previous"
+              >
+                Anterior
+              </button>
+              <button
+                class="btn btn-primary"
+                data-handle-section="torre"
+                data-type="next"
+              >
+                Próximo
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2>Selecione</h2>
+          </div>
+          <div class="card-body">
+            <div
+              class="d-flex justify-content-center align-content-start flex-wrap"
+            >
+              <div class="andar border border-dark rounded p-2 m-2">texto</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-end p-2">
+              <button class="btn btn-primary mr-2">Anterior</button>
+              <button class="btn btn-primary">Próximo</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2>Selecione</h2>
+          </div>
+          <div class="card-body">
+            <div
+              class="d-flex justify-content-center align-content-start flex-wrap"
+            >
+              <div class="unidade border border-dark rounded p-2 m-2">
+                texto
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-end p-2">
+              <button class="btn btn-primary mr-2">Anterior</button>
+              <button class="btn btn-primary">Próximo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
