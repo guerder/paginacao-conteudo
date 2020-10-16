@@ -9,9 +9,9 @@ const ContainerPagination = {
     window.addEventListener('resize', this.CreateSections);
   },
   CreateSections: function () {
-    console.log('tstst');
-    $('.sections').each(function () {
-      const section = $(this);
+    const allSections = document.querySelectorAll('.sections');
+    allSections.forEach((sectionTarget) => {
+      const section = $(sectionTarget);
       section.scrollTop(0);
       const itemsSection = section.attr('data-items-section');
 
@@ -87,31 +87,46 @@ const ContainerPagination = {
     });
   },
   HandleNavigationSection: function () {
-    $('button[data-handle-section]').on('click', function () {
-      const button = $(this);
-      const id = button.attr('data-handle-section');
-      const section = $('.sections[data-id=' + id + ']');
+    const allButtons = document.querySelectorAll('button[data-handle-section]');
+    allButtons.forEach((button) => {
+      button.addEventListener('click', handleClickButton);
+    });
 
-      const type = button.attr('data-type');
-      const totalSections = parseInt(section.attr('data-total-sections'));
-      const currentSection = parseInt(section.attr('data-current-section'));
+    function handleClickButton(event) {
+      const button = event.target;
+      const id = button.getAttribute('data-handle-section');
+      const section = document.querySelector('.sections[data-id=' + id + ']');
+
+      const type = button.getAttribute('data-type');
+      const totalSections = parseInt(
+        section.getAttribute('data-total-sections')
+      );
+      const currentSection = parseInt(
+        section.getAttribute('data-current-section')
+      );
 
       const positions = [];
-      let textPositions = section.attr('data-positions').split(',');
-      $.each(textPositions, function (_, value) {
+      let textPositions = section.getAttribute('data-positions').split(',');
+      textPositions.forEach((value) => {
         positions.push(parseFloat(value));
       });
 
       let newCurrentSection;
       if (type === 'next' && currentSection < totalSections - 1) {
         newCurrentSection = currentSection + 1;
-        section.attr('data-current-section', newCurrentSection);
-        section.scrollTop(positions[newCurrentSection]);
+        section.setAttribute('data-current-section', newCurrentSection);
+        section.scroll({
+          top: positions[newCurrentSection],
+          behavior: 'smooth',
+        });
       } else if (type === 'previous' && currentSection > 0) {
         newCurrentSection = currentSection - 1;
-        section.attr('data-current-section', newCurrentSection);
-        section.scrollTop(positions[newCurrentSection]);
+        section.setAttribute('data-current-section', newCurrentSection);
+        section.scroll({
+          top: positions[newCurrentSection],
+          behavior: 'smooth',
+        });
       }
-    });
+    }
   },
 };
