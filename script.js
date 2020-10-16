@@ -9,7 +9,6 @@ const createSections = function () {
   $('.sections').each(function () {
     const section = $(this);
     section.scrollTop(0);
-    const defaultHeightSection = section.attr('data-height-section');
     const itemsSection = section.attr('data-items-section');
 
     const container = section.find('div').first();
@@ -32,29 +31,26 @@ const createSections = function () {
 
     const dividers = section.find('.section-divider');
     if (dividers.length == 0) {
-      container.css('height', defaultHeightSection + 'px');
       section.attr('data-total-sections', 0);
       section.attr('data-total-sections', 0);
       section.attr('data-positions', 0);
 
       const firstBox = container.find('div').first();
       const topFirstBox = firstBox.offset().top;
-      const padding = topFirstBox - $(this).offset().top;
+      const marginBox = topFirstBox - container.offset().top;
       const lastBox = container.find('div').last();
-      const bottomLastBox = lastBox.offset().top + lastBox.outerHeight();
-      const heightSection =
-        bottomLastBox + padding - Math.abs(section.offset().top);
-      section.css({
+      const bottomLastBox = lastBox.offset().top + lastBox.innerHeight();
+      const heightSection = bottomLastBox + marginBox - container.offset().top;
+      const marginContainer = container.offset().top - section.offset().top;
+
+      container.css({
         height: heightSection + 'px',
       });
+      section.css({
+        height: heightSection + marginContainer * 2 + 'px',
+      });
     } else {
-      const firstBox = container.find('div').first();
-      const topFirstBox = firstBox.offset().top;
-      const padding = topFirstBox - $(this).offset().top;
-      const lastBox = $(dividers[0]).prev();
-      const bottomLastBox = lastBox.offset().top + lastBox.outerHeight();
-      const heightSection =
-        bottomLastBox + padding - Math.abs(section.offset().top);
+      const heightSection = $(dividers[0]).offset().top - section.offset().top;
       const totalSections = Math.ceil(elements.length / itemsSection);
       const resultHeight = heightSection * totalSections;
 
@@ -67,7 +63,7 @@ const createSections = function () {
       });
       section.attr('data-positions', positions.join());
 
-      $(container).css('height', resultHeight + 'px');
+      container.css('height', resultHeight + 'px');
       section.attr('data-total-sections', totalSections);
       section.css({
         height: heightSection + 'px',
