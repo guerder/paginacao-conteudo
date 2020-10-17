@@ -10,80 +10,71 @@ const ContainerPagination = {
   },
   CreateSections: function () {
     const allSections = document.querySelectorAll('.sections');
-    allSections.forEach((sectionTarget) => {
-      const section = $(sectionTarget);
-      section.scrollTop(0);
-      const itemsSection = section.attr('data-items-section');
+    allSections.forEach((section) => {
+      section.scrollTop = 0;
+      const itemsSection = section.getAttribute('data-items-section');
 
-      const container = section.find('div').first();
+      const container = section.firstElementChild;
+      const filter = section.getAttribute('data-filter');
 
-      const filter = section.attr('data-filter');
-      const elements =
-        filter === undefined
-          ? container.children('div')
-          : container.find('.' + filter);
+      let elements;
+      if (filter !== null || filter === undefined) {
+        elements = container.querySelectorAll('.' + filter);
+      } else {
+        elements = container.children;
+      }
 
-      const dividersRemove = container.find('.section-divider');
-      dividersRemove.each(function () {
-        $(this).remove();
-      });
+      const dividersList = container.querySelectorAll('.section-divider');
+      dividersList.forEach((div) => div.parentNode.removeChild(div));
 
-      $.each(elements, function (index) {
-        const element = $(this);
+      Array.from(elements).forEach((elem, index) => {
         let position = index + 1;
         if (position % itemsSection === 0 && position !== elements.length) {
-          $(element).after(
-            '<hr class="section-divider" style="display: flex; width: 100%; margin: 20px 0; border: 0;" />'
-          );
+          let hr = document.createElement('hr');
+          hr.classList.add('section-divider');
+          hr.style.display = 'flex';
+          hr.style.width = '100%';
+          hr.style.margin = '20px 0';
+          hr.style.border = '0';
+          elem.after(hr);
         }
       });
 
-      const dividers = section.find('.section-divider');
+      const dividers = section.querySelectorAll('.section-divider');
       if (dividers.length == 0) {
-        section.attr('data-total-sections', 0);
-        section.attr('data-positions', 0);
+        section.setAttribute('data-total-sections', 0);
+        section.setAttribute('data-positions', 0);
 
-        const boxesList = container.find('div');
-        const firstBox = boxesList[0];
+        const firstBox = container.firstElementChild;
         const topFirstBox = firstBox.offsetTop;
-        const marginBox = topFirstBox - container.offset().top;
-        const lastBox = boxesList[boxesList.length - 1];
+        const marginBox = topFirstBox - container.offsetTop;
+        const lastBox = container.lastElementChild;
         const bottomLastBox = lastBox.offsetTop + lastBox.innerHeight;
-        const heightSection =
-          bottomLastBox + marginBox - container.offset().top;
-        const marginContainer = container.offset().top - section.offset().top;
+        const heightSection = bottomLastBox + marginBox - container.offsetTop;
+        const marginContainer = container.offsetTop - section.offsetTop;
 
-        container.css({
-          height: heightSection + 'px',
-        });
-        section.css({
-          height: heightSection + marginContainer * 2 + 'px',
-        });
+        container.style.height = heightSection + 'px';
+        section.height = heightSection + marginContainer * 2 + 'px';
       } else {
-        const heightSection =
-          $(dividers[0]).offset().top - section.offset().top;
+        const heightSection = dividers[0].offsetTop - section.offsetTop;
         const totalSections = Math.ceil(elements.length / itemsSection);
         const resultHeight = heightSection * totalSections;
 
         const positions = [];
-        const positionSection = section.offset().top;
+        const positionSection = section.offsetTop;
         positions.push(0);
-        $.each(dividers, function () {
-          const divider = $(this);
-          positions.push(divider.offset().top - positionSection);
-        });
-        section.attr('data-positions', positions.join());
+        dividers.forEach((item) =>
+          positions.push(item.offsetTop - positionSection)
+        );
+        section.setAttribute('data-positions', positions.join());
 
-        container.css('height', resultHeight + 'px');
-        section.attr('data-total-sections', totalSections);
-        section.css({
-          height: heightSection + 'px',
-          overflow: 'hidden',
-        });
-        section.attr('data-total-sections');
+        container.style.height = resultHeight + 'px';
+        section.setAttribute('data-total-sections', totalSections);
+        section.style.height = heightSection + 'px';
+        section.style.overflow = 'hidden';
       }
 
-      section.attr('data-current-section', 0);
+      section.setAttribute('data-current-section', 0);
     });
   },
   HandleNavigationSection: function () {
