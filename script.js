@@ -12,13 +12,13 @@ const ContainerPagination = {
     const allSections = document.querySelectorAll('.sections');
     allSections.forEach((section) => {
       section.scrollTop = 0;
-      const itemsSection = section.getAttribute('data-items-section');
 
+      const itemsSection = section.getAttribute('data-items-section');
       const container = section.firstElementChild;
       const filter = section.getAttribute('data-filter');
 
       let elements;
-      if (filter !== null || filter === undefined) {
+      if (filter !== null && filter !== undefined) {
         elements = container.querySelectorAll('.' + filter);
       } else {
         elements = container.children;
@@ -55,6 +55,8 @@ const ContainerPagination = {
 
         container.style.height = heightSection + 'px';
         section.height = heightSection + marginContainer * 2 + 'px';
+
+        section.setAttribute('data-current-section', 0);
       } else {
         const heightSection = dividers[0].offsetTop - section.offsetTop;
         const totalSections = Math.ceil(elements.length / itemsSection);
@@ -72,9 +74,17 @@ const ContainerPagination = {
         section.setAttribute('data-total-sections', totalSections);
         section.style.height = heightSection + 'px';
         section.style.overflow = 'hidden';
-      }
 
-      section.setAttribute('data-current-section', 0);
+        const currentSection = section.getAttribute('data-current-section');
+        if (currentSection !== null && currentSection !== undefined) {
+          section.scroll({
+            top: positions[parseFloat(currentSection)],
+            behavior: 'auto',
+          });
+        } else {
+          section.setAttribute('data-current-section', 0);
+        }
+      }
     });
   },
   HandleNavigationSection: function () {
