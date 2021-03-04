@@ -8,7 +8,10 @@ No exemplo acima temos 24 caixas de dimensões iguais que foram divididas em gru
 
 ## Estrutura
 
-Primeiramente devemos entender a estrutura básica para construir o html. São 3 elementos básicos: container externo que funcionará como uma janela fixa, um container interno que será a nossa página rolável, e por fim o conteúdo composto por vários itens de tamanhos semelhantes.
+Primeiramente devemos entender a estrutura básica para construir o html. São 3 elementos básicos: 
+- `container externo` que funcionará como uma janela fixa,
+- `container interno` que será a nossa página rolável,
+- `conteúdo` composto por vários itens de tamanhos semelhantes.
 
 ![estrutura html](./assets/estrutura.png)
 
