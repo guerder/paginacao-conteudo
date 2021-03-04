@@ -27,9 +27,10 @@ const ContainerPagination = {
       const dividersList = container.querySelectorAll('.section-divider');
       dividersList.forEach((div) => div.parentNode.removeChild(div));
 
+      let numberOfElements = elements.length;
       Array.from(elements).forEach((elem, index) => {
         let position = index + 1;
-        if (position % itemsSection === 0 && position !== elements.length) {
+        if (position % itemsSection === 0 && position !== numberOfElements) {
           let hr = document.createElement('hr');
           hr.classList.add('section-divider');
           hr.style.display = 'flex';
@@ -59,7 +60,7 @@ const ContainerPagination = {
         section.setAttribute('data-current-section', 0);
       } else {
         const heightSection = dividers[0].offsetTop - section.offsetTop;
-        const totalSections = Math.ceil(elements.length / itemsSection);
+        const totalSections = Math.ceil(numberOfElements / itemsSection);
         const resultHeight = heightSection * totalSections;
 
         const positions = [];
